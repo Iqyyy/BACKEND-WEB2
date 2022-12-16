@@ -96,6 +96,7 @@ const productlog = async (req, res) => {
         if (result instanceof Error) {
             throw new Error(result);
         }
+        res.status(responseHelper.status.success).json(result);
     } catch (error) {
         res.status(responseHelper.status.error).json(error.message);
     }
@@ -124,6 +125,7 @@ const verify = async (req, res, next) => {
         if (result instanceof Error) {
             throw new Error(result);
         }
+        res.status(responseHelper.status.success).json(result);
     } catch (error) {
         res.status(responseHelper.status.error).json(error.message);
     }
