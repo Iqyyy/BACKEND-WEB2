@@ -86,9 +86,44 @@ const removecart = async (req, res) => {
     }
 }
 
+const productlog = async (req, res) => {
+    try {
+        const id_user = req.verified
+        const id_item = req.body.id_item
+        const jumlah = req.body.jumlah
+        const harga = req.body.jumlah
+        const result = await Services.productlog(id_user, id_item, jumlah, harga)
+        if (result instanceof Error) {
+            throw new Error(result);
+        }
+    } catch (error) {
+        res.status(responseHelper.status.error).json(error.message);
+    }
+}
+
+const discount = async (req, res) => {
+    try {
+
+    } catch (error) {
+
+    }
+}
+
 const logout = async (req, res, next) => {
     try {
         res.clearCookie('token').status(responseHelper.status.success).send("Berhasil Logout");
+    } catch (error) {
+        res.status(responseHelper.status.error).json(error.message);
+    }
+}
+
+const verify = async (req, res, next) => {
+    try {
+        const verified = req.verified
+        const result = await Services.verify(verified)
+        if (result instanceof Error) {
+            throw new Error(result);
+        }
     } catch (error) {
         res.status(responseHelper.status.error).json(error.message);
     }
@@ -101,5 +136,7 @@ module.exports = {
     addcart,
     checkout,
     removecart,
-    logout
+    productlog,
+    logout,
+    verify
 }

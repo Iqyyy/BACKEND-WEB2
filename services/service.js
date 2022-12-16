@@ -77,7 +77,7 @@ const checkout = async (id_user) => {
             }
             return data
         } else {
-            return result.rows
+            return (result.rows)
         }
     } catch (error) {
         return error
@@ -96,11 +96,35 @@ const removecart = async (id_user, id_item) => {
     }
 }
 
+const productlog = async (id_user, id_item, jumlah, harga) => {
+    try {
+        for (let i = 0 ; i < id_item.length ; i++ ){
+            const query = `INSERT INTO log VALUES(DEFAULT, $1, $2, $3, $4, CURRENT_TIMESTAMP)`;
+            const result = await databaseQuery(query, [id_user,id_item[i],jumlah[i],harga[i]])
+        }
+        return ("SUKSES")
+    } catch (error) {
+        return error
+    }
+}
+
+const verify = async (verified) => {
+    try {
+        const query = `SELECT * FROM users WHERE id_user=$1`;
+        const result = await databaseQuery(query, [verified])
+        return result.rows[0]
+    } catch (error) {
+
+    }
+}
+
 module.exports = {
     register,
     login,
     profile,
     addcart,
     checkout,
-    removecart
+    removecart,
+    productlog,
+    verify
 }

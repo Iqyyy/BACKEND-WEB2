@@ -17,6 +17,10 @@ router.route('/checkout').post(Auth.verifyToken, controller.checkout)
 
 router.route('/removecart').post(Validation.removecart, Auth.verifyToken, controller.removecart)
 
+router.route('/productlog').post(Auth.verifyToken, controller.productlog)
+
 router.route('/logout').post(Auth.verifyToken, controller.logout)
+
+router.route('/verify').post(Auth.verifyToken, controller.verify)
 
 module.exports = router
