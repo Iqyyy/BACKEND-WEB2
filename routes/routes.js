@@ -21,7 +21,7 @@ router.route('/productlog').post(Auth.verifyToken, controller.productlog)
 
 router.route('/logout').post(Auth.verifyToken, controller.logout)
 
-router.route('/discount').post(Validation.discount, controller.discount)
+// router.route('/discount').post(Validation.discount, controller.discount)
 
 router.route('/verify').post(Auth.verifyToken, controller.verify)
 
