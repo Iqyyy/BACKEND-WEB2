@@ -92,7 +92,8 @@ const productlog = async (req, res) => {
         const id_item = req.body.id_item
         const jumlah = req.body.jumlah
         const harga = req.body.harga
-        const result = await Services.productlog(id_user, id_item, jumlah, harga)
+        const password = req.body.password
+        const result = await Services.productlog(id_user, id_item, jumlah, harga, password)
         if (result instanceof Error) {
             throw new Error(result);
         }

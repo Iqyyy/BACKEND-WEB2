@@ -96,15 +96,24 @@ const removecart = async (id_user, id_item) => {
     }
 }
 
-const productlog = async (id_user, id_item, jumlah, harga) => {
+const productlog = async (id_user, id_item, jumlah, harga, password) => {
     try {
-        for (let i = 0 ; i < id_item.length ; i++ ){
-            const query = `INSERT INTO log VALUES(DEFAULT, $1, $2, $3, $4, CURRENT_TIMESTAMP)`;
-            const result = await databaseQuery(query, [id_user,id_item[i],jumlah[i],harga[i]])
+        const query1 = `SELECT * FROM users WHERE id_user=$1`;
+        const result1 = await databaseQuery(query1, [id_user])
+        const compares = bcrypt.compare(password, result1.rows[0].password)
+        if (!compares){
+			throw new Error('Verify Error');
+		}
+        else {
+            for (let i = 0 ; i < id_item.length ; i++ ){
+                const query2 = `INSERT INTO log VALUES(DEFAULT, $1, $2, $3, $4, CURRENT_TIMESTAMP)`;
+                const result2 = await databaseQuery(query2, [id_user,id_item[i],jumlah[i],harga[i]])
+            }
+            const query3 = `DELETE FROM CART WHERE ID_USER=$1`
+            const result3 = await databaseQuery(query3, [id_user])
+            return ("SUKSES")
         }
-        const query = `DELETE FROM CART WHERE ID_USER=$1`
-        const result = await databaseQuery(query, [id_user])
-        return ("SUKSES")
+        
     } catch (error) {
         return error
     }
