@@ -91,7 +91,7 @@ const productlog = async (req, res) => {
         const id_user = req.verified
         const id_item = req.body.id_item
         const jumlah = req.body.jumlah
-        const harga = req.body.jumlah
+        const harga = req.body.harga
         const result = await Services.productlog(id_user, id_item, jumlah, harga)
         if (result instanceof Error) {
             throw new Error(result);
@@ -104,9 +104,14 @@ const productlog = async (req, res) => {
 
 const discount = async (req, res) => {
     try {
-
+        const nama_discount = req.body.nama_discount
+        const result = await Services.discount(nama_discount)
+        if (result instanceof Error) {
+            throw new Error(result);
+        }
+        res.status(responseHelper.status.success).json(result);
     } catch (error) {
-
+        res.status(responseHelper.status.error).json(error.message);
     }
 }
 
@@ -139,6 +144,7 @@ module.exports = {
     checkout,
     removecart,
     productlog,
+    discount,
     logout,
     verify
 }

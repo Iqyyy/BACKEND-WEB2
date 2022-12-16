@@ -102,7 +102,18 @@ const productlog = async (id_user, id_item, jumlah, harga) => {
             const query = `INSERT INTO log VALUES(DEFAULT, $1, $2, $3, $4, CURRENT_TIMESTAMP)`;
             const result = await databaseQuery(query, [id_user,id_item[i],jumlah[i],harga[i]])
         }
+        const query = `DELETE FROM CART WHERE ID_USER=$1`
+        const result = await databaseQuery(query, [id_user])
         return ("SUKSES")
+    } catch (error) {
+        return error
+    }
+}
+
+const discount = async (nama_discount) => {
+    try {
+        const query = `SELECT VALUE_DISCOUNT FROM DISCOUNT WHERE NAMA_DISCOUNT=$1`;
+        const result = 1
     } catch (error) {
         return error
     }
@@ -114,7 +125,7 @@ const verify = async (verified) => {
         const result = await databaseQuery(query, [verified])
         return result.rows[0]
     } catch (error) {
-
+        return error
     }
 }
 
