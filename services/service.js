@@ -122,7 +122,12 @@ const productlog = async (id_user, id_item, jumlah, harga, password) => {
 const discount = async (nama_discount) => {
     try {
         const query = `SELECT VALUE_DISCOUNT FROM DISCOUNT WHERE NAMA_DISCOUNT=$1`;
-        const result = 1
+        const result = await databaseQuery(query, [nama_discount])
+        if (!result) {
+            return ("Discount Code Not Found")
+        } else {
+            return result.rows
+        }
     } catch (error) {
         return error
     }
@@ -146,5 +151,6 @@ module.exports = {
     checkout,
     removecart,
     productlog,
+    discount,
     verify
 }

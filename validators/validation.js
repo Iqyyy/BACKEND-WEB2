@@ -26,9 +26,15 @@ const removecart = [
     validator
 ]
 
+const discount = [
+    body('nama_discount').isString(),
+    validator
+]
+
 module.exports = {
     register,
     login,
     addcart,
-    removecart
+    removecart,
+    discount
 }
