@@ -87,9 +87,9 @@ const checkout = async (id_user) => {
 const removecart = async (id_user, id_item) => {
     try {
         const query = `DELETE FROM CART WHERE id_user = $1 and id_item = $2`;
-        const query2 = `SELECT * FROM CART`;
+        const query2 = `SELECT * FROM CART WHERE id_user = $1`;
         const result = await databaseQuery(query, [id_user, id_item])
-        const result2 = await databaseQuery(query)
+        const result2 = await databaseQuery(query2, [id_user])
         return (result2.rows)
     } catch (error) {
         return error
