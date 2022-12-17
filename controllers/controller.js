@@ -75,7 +75,7 @@ const checkout = async (req, res) => {
 const removecart = async (req, res) => {
     try {
         const id_user = req.verified
-        const {id_item} = req.body.id_item
+        const id_item = req.body.id_item
         const result = await Services.removecart(id_user, id_item)
         if (result instanceof Error) {
             throw new Error(result);
